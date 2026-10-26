@@ -3,7 +3,7 @@ name: github-daily-cards
 description: "Turn GitHub Trending (daily) into Xiaohongshu-style 1080×1440 cards. Use when the user pastes https://github.com/alongbow/github-daily-cards and asks to install it, or says 做GitHub日榜 / 跑今天的日榜 / 出今天这期. Agent should install this SKILL.md itself then run the daily flow."
 license: MIT
 metadata:
-  version: "1.4.0"
+  version: "1.5.0"
   last_updated: "2026-10-26"
   project: ~/xhs-github-daily
 ---
