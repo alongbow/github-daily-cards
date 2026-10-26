@@ -1,9 +1,9 @@
 ---
 name: github-daily-cards
-description: "GitHub 日榜小红书图文卡（每日例行任务）。当用户说「跑今天的日榜」「GitHub日榜」「日榜」「出今天这期」「继续昨天那个榜」，或提到 ~/xhs-github-daily、GitHub日榜-YYYY-MM-DD、桌面上的日榜文件夹、小红书 GitHub 榜单图时，必须使用本 skill。产出 3:4（1080x1440）卡片图 c01 封面 + c02 完整榜 + d01..dNN 单项目卡，外加 post.md 文案，并复制到 Windows 桌面。"
+description: "Turn GitHub Trending (daily) into Xiaohongshu-style 1080×1440 cards. Use when the user asks for GitHub日榜 / daily trending cards / 出今天这期, or works on an xhs-github-daily-style render project. Works with any agent that can load a SKILL.md."
 license: MIT
 metadata:
-  version: "1.2.0"
+  version: "1.3.0"
   last_updated: "2026-10-26"
   project: ~/xhs-github-daily
 ---
@@ -130,6 +130,22 @@ cp -r "~/xhs-github-daily/out/YYYY-MM-DD" "~/Desktop/ 或 Windows: C:/Users/<你
 （Windows 路径 `C:\Users\79445\Desktop\...` 在 WSL 里就是上面那个 `/mnt/c/...`。）
 
 汇报时给：产物路径、本期是几条、榜首与关键变动、丢/进的项目、白痴读者是否审过、以及你自己改过的代码点（如果有）。
+
+
+## 安装到任意 Agent（通用）
+
+本仓库只有一份 `SKILL.md`。凡是支持「把 markdown skill 丢进 skills 目录 / 工作区」的 Agent 都能用（OpenCode、Cursor、Claude Code、自家 Bot 等），不绑定某一家产品。
+
+1. 复制 `SKILL.md` 到该 Agent 的 skills 目录，文件夹名建议 `github-daily-cards`。
+2. 常见位置示例（按你用的工具改，没有就查它的 docs）：
+   - `~/.config/opencode/skills/github-daily-cards/SKILL.md`
+   - `~/.claude/skills/github-daily-cards/SKILL.md`
+   - 项目内 `.cursor/skills/github-daily-cards/SKILL.md` 或产品设置里的 Skills
+3. 新开一轮对话，确保 skill 已被加载（有的要重启客户端）。
+4. 本机另有渲染项目（`render.py` + `data/` + `out/`），路径在 skill 里默认 `~/xhs-github-daily`，改成你的即可。
+5. 对 Agent 说：`跑今天的日榜` / `GitHub日榜` / `出今天这期`。
+
+不要依赖某一家的专有命令；触发词写在 frontmatter `description` 里，Agent 按描述匹配即可。
 
 ## 7. 历史（续写在这里，方便新 session 接手）
 
