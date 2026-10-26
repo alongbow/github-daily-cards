@@ -1,9 +1,9 @@
 ---
 name: github-daily-cards
-description: "Turn GitHub Trending (daily) into Xiaohongshu-style 1080×1440 cards. Use when the user asks for GitHub日榜 / daily trending cards / 出今天这期, or works on an xhs-github-daily-style render project. Works with any agent that can load a SKILL.md."
+description: "Turn GitHub Trending (daily) into Xiaohongshu-style 1080×1440 cards. Use when the user pastes https://github.com/alongbow/github-daily-cards and asks to install it, or says 做GitHub日榜 / 跑今天的日榜 / 出今天这期. Agent should install this SKILL.md itself then run the daily flow."
 license: MIT
 metadata:
-  version: "1.3.0"
+  version: "1.4.0"
   last_updated: "2026-10-26"
   project: ~/xhs-github-daily
 ---
@@ -16,7 +16,7 @@ metadata:
 - 历史快照：`data/YYYY-MM-DD.json`（trending 原始数据）
 - 每日文案：`data/copy-YYYY-MM-DD.json`（title / body / one / moves）
 - 产物：`out/YYYY-MM-DD/`，再整目录复制到 `~/Desktop/ 或 Windows: C:/Users/<你>/Desktop/GitHub日榜-YYYY-MM-DD`
-- 用户说「跑」= 跑**当天**这期。今天日期看环境里的 Today's date，不要用系统 `date` 想当然。
+- 用户说「跑 / 做一份 GitHub 日榜」= 跑**当天**这期。今天日期看环境里的 Today's date，不要用系统 `date` 想当然。
 - 本 skill 假定项目在 `~/xhs-github-daily`（可用 WSL/Linux）；路径按你本机改。
 
 每日例行 = 抓榜 → 对比昨日 → 写文案 → **白痴读者审稿** → 出图 → **防叠字自检** → 复制到桌面 → 汇报。
@@ -132,20 +132,21 @@ cp -r "~/xhs-github-daily/out/YYYY-MM-DD" "~/Desktop/ 或 Windows: C:/Users/<你
 汇报时给：产物路径、本期是几条、榜首与关键变动、丢/进的项目、白痴读者是否审过、以及你自己改过的代码点（如果有）。
 
 
-## 安装到任意 Agent（通用）
+## 安装与触发（给 Agent 自己看）
 
-本仓库只有一份 `SKILL.md`。凡是支持「把 markdown skill 丢进 skills 目录 / 工作区」的 Agent 都能用（OpenCode、Cursor、Claude Code、自家 Bot 等），不绑定某一家产品。
+用户通常只会做两件事：
 
-1. 复制 `SKILL.md` 到该 Agent 的 skills 目录，文件夹名建议 `github-daily-cards`。
-2. 常见位置示例（按你用的工具改，没有就查它的 docs）：
-   - `~/.config/opencode/skills/github-daily-cards/SKILL.md`
-   - `~/.claude/skills/github-daily-cards/SKILL.md`
-   - 项目内 `.cursor/skills/github-daily-cards/SKILL.md` 或产品设置里的 Skills
-3. 新开一轮对话，确保 skill 已被加载（有的要重启客户端）。
-4. 本机另有渲染项目（`render.py` + `data/` + `out/`），路径在 skill 里默认 `~/xhs-github-daily`，改成你的即可。
-5. 对 Agent 说：`跑今天的日榜` / `GitHub日榜` / `出今天这期`。
+1. 把仓库地址发给你：`https://github.com/alongbow/github-daily-cards`，并说「装上这个 skill」
+2. 再说「做一份 GitHub 日榜」/「跑今天的日榜」
 
-不要依赖某一家的专有命令；触发词写在 frontmatter `description` 里，Agent 按描述匹配即可。
+**你（Agent）应主动完成安装**，不要让用户手敲路径：
+
+1. 拉取或读取本仓库的 `SKILL.md`
+2. 写入你所在产品的 skills 目录（文件夹名建议 `github-daily-cards`）；若当前环境有「安装 skill」的官方命令/流程，优先用官方方式
+3. 确认本机有渲染项目（`render.py` + `data/` + `out/`，默认 `~/xhs-github-daily`）；没有则按用户环境创建或询问路径
+4. 然后直接执行本 skill 的每日例行，不要再问「要不要装」
+
+适用 OpenCode、Workbuddy、Claude Code、Cursor、其它能装 skill 的 Agent——**不绑定某一家**。只有在你无法写 skills 目录时，才提示用户手动拷贝 `SKILL.md`。
 
 ## 7. 历史（续写在这里，方便新 session 接手）
 
